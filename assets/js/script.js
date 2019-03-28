@@ -1,6 +1,6 @@
 var mode = 1; // 1: normal, 0: screensaver (idle)
 var idleTimeout;
-
+var idleInterval = 30000;
 
 
 $(document).ready(() => {
@@ -11,7 +11,7 @@ $(document).ready(() => {
 });
 
 function init () {
-  idleTimeout = setTimeout(idle, 2000);
+  idleTimeout = setTimeout(idle, idleInterval);
 }
 
 function render () {
@@ -22,7 +22,7 @@ function mouseMove () {
   mode = 1;
   $('.screensaver').hide();
   clearTimeout(idleTimeout);
-  idleTimeout = setTimeout(idle, 2000);
+  idleTimeout = setTimeout(idle, idleInterval);
 }
 
 function idle () {
@@ -36,6 +36,9 @@ function idle () {
     var hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((dist % (1000 * 60)) / 1000);
-    document.getElementById("timer").innerHTML = (days < 10 ? "0" : "") + days + ":" + (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    $('#days').html(days+':');
+		$('#hours').html(hours+':');
+		$('#minutes').html(minutes+':');
+		$('#seconds').html(seconds);
   });
 }
