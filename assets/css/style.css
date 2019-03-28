@@ -151,7 +151,9 @@ ul li {
 }
 
 .screensaver #poster {
-  object-fit: cover;
+  background-image: url(../img/ss.jpg);
+  background-size: cover;
+  background-position: center;
   width: 100vw;
   height: 100vh;
 }
@@ -242,6 +244,10 @@ ul li {
 
   .screensaver .title-long {
     display: none;
+  }
+
+  .screensaver #poster {
+    background-image: url(../img/ss-slanted.jpg);
   }
 
   .screensaver #timer {

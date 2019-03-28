@@ -1,6 +1,6 @@
 var mode = 1; // 1: normal, 0: screensaver (idle)
 var idleTimeout;
-var idleInterval = 30000;
+var idleInterval = 1000;
 
 
 $(document).ready(() => {
