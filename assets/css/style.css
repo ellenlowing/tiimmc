@@ -191,12 +191,21 @@ ul li {
     margin-top: -9.375vh;
     width: 60vh;
     height: 18.75vh;
-    z-index: 4;
+    position: absolute;
+    z-index: 2;
   }
 
   .main .info {
     display: block;
     padding-left: 2.1em;
+  }
+
+  .main .info > * {
+    padding-right: 0;
+  }
+
+  .main .info > *:nth-child(2) {
+    padding-right: 1.2em;
   }
 
   .main .info .title {
@@ -243,11 +252,19 @@ ul li {
   }
 
   .screensaver .title-long {
-    display: none;
+    left: 50%;
+    top: 50%;
+    margin-left: -30vh;
+    margin-top: -9.375vh;
+    width: 60vh;
+    height: 18.75vh;
+    position: absolute;
+    z-index: 4;
   }
 
   .screensaver #poster {
     background-image: url(../img/ss-slanted.jpg);
+    transform: scale(1.5);
   }
 
   .screensaver #timer {
