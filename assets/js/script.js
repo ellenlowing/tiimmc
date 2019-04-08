@@ -1,6 +1,6 @@
 var mode = 1; // 1: normal, 0: screensaver (idle)
 var idleTimeout;
-var idleInterval = 30000;
+var idleInterval = 30000; //90000
 
 
 $(document).ready(() => {
@@ -36,9 +36,9 @@ function idle () {
     var hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((dist % (1000 * 60)) / 1000);
-    $('#days').html(days+':');
-		$('#hours').html(hours+':');
-		$('#minutes').html(minutes+':');
-		$('#seconds').html(seconds);
+    $('#days').html(days<10?'0'+days+':':days+':');
+		$('#hours').html(hours<10?'0'+hours+':':hours+':');
+		$('#minutes').html(minutes<10?'0'+minutes+':':minutes+':');
+		$('#seconds').html(seconds<10?'0'+seconds:seconds);
   });
 }
