@@ -1,6 +1,6 @@
 var mode = 1; // 1: normal, 0: screensaver (idle)
 var idleTimeout;
-var idleInterval = 30000; //90000
+var idleInterval = 90000; //90000
 
 
 $(document).ready(() => {
@@ -12,6 +12,24 @@ $(document).ready(() => {
 
 function init () {
   idleTimeout = setTimeout(idle, idleInterval);
+	$('#mukbang').click( function() {
+		if($('#trailer').get(0).paused) {
+			$('#trailer').get(0).play();
+			$('#mukbang').toggleClass('playing', true);
+			if(!$('#mukbang').hasClass('initialized')) {
+				$('#mukbang').toggleClass('initialized', true);
+				// $('#trailer').css('visibility', 'visible');
+			}
+		} else {
+			$('#trailer').get(0).pause();
+			$('#mukbang').toggleClass('playing', false);
+		}
+	});
+
+	$('#trailer').on('ended', function() {
+		$('#mukbang').toggleClass('initialized', false);
+		$('#mukbang').toggleClass('playing', false);
+	});
 }
 
 function render () {

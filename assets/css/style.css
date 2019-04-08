@@ -38,14 +38,48 @@ ul li {
 ::selection { background: #9946FF; }
 
 .main #mukbang {
-  background-image: url(../img/main.jpg);
-  background-size: cover;
-  background-position: center;
   width: 100vw;
   height: 100vh;
 }
 
-.main .title-long {
+.main #mukbang video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 4;
+  visibility: hidden;
+}
+
+.main .initialized video {
+  visibility: visible !important;
+}
+
+.main #mukbang:hover {
+  cursor: url(../img/play-desktop.png), auto;
+}
+
+.main .playing:hover {
+  cursor: url(../img/pause-desktop.png), auto !important;
+}
+
+.main #vidcover {
+  background-image: url(../img/main.jpg);
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  visibility: visible;
+  z-index: 3;
+}
+
+.main .initialized #vidcover {
+  visibility: hidden;
+}
+
+.main #vidcover .title-long {
   left: 50%;
   top: 50%;
   margin-left: -22vw;
@@ -53,7 +87,6 @@ ul li {
   position: absolute;
   width: 44vw;
   height: 13.75vw;
-  z-index: 2;
 }
 
 .main .title-long g,
