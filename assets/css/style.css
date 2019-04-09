@@ -34,8 +34,8 @@ ul li {
   display: inline;
 }
 
-::-moz-selection { background: #9946FF; }
-::selection { background: #9946FF; }
+::-moz-selection { color: #9946FF; }
+::selection { color: #9946FF; }
 
 .main #mukbang {
   position: relative;
@@ -65,10 +65,10 @@ ul li {
 }
 
 .main #vidbar-out {
-  border: 1px solid white;
+  border: 0.5px solid white;
   display: none;
   width: 91vw;
-  height: 13px;
+  height: 3px;
   position: absolute;
   left: 50%;
   margin-left: -45.5vw;
@@ -76,11 +76,8 @@ ul li {
   z-index: 5;
 }
 
-.main #vidbar-out:hover {
-  cursor: pointer;
-}
-
 .main #vidbar-in {
+  border: none;
   background-color: #fff;
   display: inherit;
   width: 0;
@@ -89,6 +86,21 @@ ul li {
   left: 0;
   top: 0;
   z-index: 6;
+}
+
+.main #vidbar-sensitive {
+  background-color: unset;
+  display: inherit;
+  width: inherit;
+  height: 20px;
+  position: relative;
+  left: 0;
+  top: -10px;
+  z-index: 7;
+}
+
+.main #vidbar-sensitive:hover {
+  cursor: pointer;
 }
 
 .main #vidbutton {
@@ -123,12 +135,12 @@ ul li {
 
 .main #vidcover .title-long {
   left: 50%;
-  top: 50%;
-  margin-left: -22vw;
-  margin-top: -6.875vw;
+  top: 53.5%;
+  margin-left: -30vw;
+  margin-top: -7.73vw;
   position: absolute;
-  width: 44vw;
-  height: 13.75vw;
+  width: 60vw;
+  height: auto;
 }
 
 .main .title-long g,
@@ -397,7 +409,7 @@ ul li {
   }
 
   .screensaver #poster {
-    background-image: url(../img/ss03-slanted.jpg);
+    background-image: url(../img/ss04-slanted.jpg);
     /* transform: scale(1.5); */
   }
 
