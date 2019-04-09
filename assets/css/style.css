@@ -221,9 +221,10 @@ ul li {
 .main .info .rsvp .oval {
   transform: rotate(-12deg);
   border: 3px solid #A55DFF;
-  border-radius: 10vw / 4.72vw;
-  width: 20vw;
-  height: 8.33vw;
+  border-radius: 140px / 60px;
+  width: 280px;
+  height: 120px;
+  position: relative;
 }
 
 .main .info .rsvp .oval:hover {
@@ -238,10 +239,10 @@ ul li {
 .main .info .rsvp #rsvp-link {
   color: #A55DFF;
   font-family: Blitz;
-  font-size: 5.69vw;
+  font-size: 82px;
   position: relative;
-  left: 17%;
-  top: 40%;
+  left: 44px;
+  top: 54px;
   text-decoration: none;
 }
 
@@ -362,9 +363,10 @@ ul li {
   .main .info .rsvp {
     left: 50%;
     position: relative;
-    margin-left: -33.8vw;
+    margin-left: -140px;
   }
 
+  /*
   .main .info .rsvp .oval {
     border-radius: 33.8vw / 16.4vw;
     width: 67.6vw;
@@ -375,7 +377,7 @@ ul li {
     font-size: 20.0vw;
     left: 15%;
     top: 45%;
-  }
+  } */
 
   .main .info .copyright {
     font-size: 12px;
