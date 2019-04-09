@@ -4,15 +4,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     <script type="text/javascript" src="assets/vendors/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/vendors/mobile-detect.min.js"></script>
     <title>TIIMMC</title>
   </head>
   <body>
     <div class="main">
       <div id="mukbang" alt="">
-        <video id="trailer" src="assets/trailer.mp4">
-
+        <video playsinline id='trailer' class='video-js vjs-tech' preload='auto' poster='assets/img/main.jpg' data-setup='{}'>
+          <source src='https://res.cloudinary.com/disiikdzk/video/upload/v1554786711/trailer.mp4' type='video/mp4'>
+          <p class='vjs-no-js'>
+            To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href='https://videojs.com/html5-video-support/' target='_blank'>supports HTML5 video</a>
+          </p>
         </video>
+        <div id="vidbar-out">
+          <div id="vidbar-in">
+
+          </div>
+        </div>
+        <div id="vidbutton">
+          Play
+        </div>
         <div id="vidcover">
           <div class="title-long">
             <?xml version="1.0" encoding="utf-8"?>
@@ -147,6 +162,10 @@
             </svg>
           </div>
         </div>
+        <div id="vidcursor">
+          <img src="assets/img/play-desktop.png" alt="" id="playcursor">
+          <img src="assets/img/pause-desktop.png" alt="" id="pausecursor">
+        </div>
       </div>
 
       <div class="info">
@@ -167,7 +186,7 @@
           </div>
           <div class="rsvp">
             <div class="oval">
-              <a href="#" id="rsvp-link">RSVP</a>
+              <a href="https://www.eventbrite.com/e/the-internet-is-my-main-course-tickets-60045596997" target="_blank" id="rsvp-link">RSVP</a>
             </div>
 
           </div>
@@ -318,6 +337,7 @@
         </ul>
       </div>
     </div>
+    <script src='https://vjs.zencdn.net/7.4.1/video.js'></script>
     <script type="text/javascript" src="assets/js/script.js"></script>
   </body>
 </html>
