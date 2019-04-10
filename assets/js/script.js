@@ -2,11 +2,14 @@ var mode = 1; // 1: normal, 0: screensaver (idle)
 var idleTimeout;
 var idleInterval = 90000; //90000
 var mobileMode = false;
+var touchInit = false; // mobile only
+var touchTimeout;
 var progressId;
 var player = videojs('trailer');
 var playerReady = false;
 
 $(document).ready(() => {
+	if(isMobile()) mobileMode = true;
 	init();
 	playerReady = player.ready( () => {return true});
   $(window).mousemove(mouseMove);
@@ -14,7 +17,164 @@ $(document).ready(() => {
 });
 
 function init () {
-  idleTimeout = setTimeout(idle, idleInterval);
+  idleTimeout = setTimeout(idle, idleInterval); //screensaver timer
+
+	if(mobileMode) {
+		// showing play / pause button
+		$('#vidbutton').show();
+
+		// rotating the video to landscape mode
+		$('#trailer').css({
+			'transform': 'rotate(-90deg) translateX(+50vw) translateX(-50vh) translateY(-50vh) translateY(50vw)',
+			'-webkit-transform': 'rotate(-90deg) translateX(+50vw) translateX(-50vh) translateY(-50vh) translateY(50vw)',
+			'width': '100vh',
+			'height': '100vw'
+		});
+		$('#vidbar-out').css({
+			'height': '91vh',
+			'width': '4px',
+			'top': '50%',
+			'margin-top': '-45.5vh',
+			'left': 'unset',
+			'margin-left': 'unset',
+			'right': '26px',
+			'transform': 'scaleY(-1)'
+		});
+		$('#vidbar-in').css({
+			'width': 'inherit',
+			'height': '0',
+			'transform': 'scaleY(-1)'
+		});
+		$('#vidbar-sensitive').css({
+			'height': 'inherit',
+			'width': '40px',
+			'position': 'absolute',
+			'top': '0',
+			'left': '-15px'
+		});
+
+		// tap listener
+		// once: to show pause button and vid progress bar
+		// twice: set vid time if press in vidbar, otherwise pause video
+		var mukbang = document.getElementById('mukbang');
+		mukbang.addEventListener('touchstart', (e) => {
+			if(player.paused()) {
+				var touch = e.targetTouches[0];
+				if(touch.pageX > (window.innerWidth-100)) {
+					// set vid time with clientY
+					var progress = 1.0 - Math.abs(touch.pageY - 0.045 * window.innerHeight) / (0.91 * window.innerHeight);
+					player.currentTime(progress * player.duration());
+					player.pause();
+					render();
+				} else {
+					player.play();
+					progressId = requestAnimationFrame(render);
+					$('#vidbutton').html('Pause');
+					$('#vidbar-out').show();
+					setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 1000);
+					if(!$('#mukbang').hasClass('initialized')) {
+						$('#mukbang').toggleClass('initialized', true);
+						$('#vidbutton').html('Pause');
+						$('#vidbar-out').show();
+						setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 1000);
+					}
+				}
+			} else {
+				if(!touchInit) {
+					touchInit = true;
+					$('#vidbutton').html('Pause');
+					$('#vidbar-out').show();
+					touchTimeout = setTimeout(() => {
+						touchInit = false;
+						$('#vidbutton').html('');
+						$('#vidbar-out').hide();
+					}, 1000);
+				} else {
+					clearTimeout(touchTimeout);
+					touchInit = false;
+					var touch = e.targetTouches[0];
+					if(touch.pageX > (window.innerWidth-100)) {
+						// set vid time with clientY
+						var progress = 1.0 - Math.abs(touch.pageY - 0.045 * window.innerHeight) / (0.91 * window.innerHeight);
+						player.currentTime(progress * player.duration());
+						player.play();
+						setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 1000);
+						render();
+					} else {
+						player.pause();
+						cancelAnimationFrame(progressId);
+						$('#vidbutton').html('Play');
+						$('#vidbar-out').show();
+					}
+				}
+			}
+		}, false);
+	} else {
+		// DESKTOP
+		// switching play/pause states
+		$('#mukbang').click( function() {
+			if(player.paused()) {
+				player.play();
+				progressId = requestAnimationFrame(render);
+				$('#playcursor').hide();
+				$('#pausecursor').show();
+				setTimeout(() => {$('#vidbar-out').hide();}, 1000);
+				if(!$('#mukbang').hasClass('initialized')) {
+					$('#mukbang').toggleClass('initialized', true);
+					$('#vidbar-out').show();
+					setTimeout(() => {$('#vidbar-out').hide();}, 1000);
+				}
+			} else {
+				player.pause();
+				cancelAnimationFrame(progressId);
+				$('#pausecursor').hide();
+				$('#playcursor').show();
+				$('#vidbar-out').show();
+			}
+		});
+
+		// showing and hiding vid progress bar on mouse move
+		$('#mukbang').mouseenter( function() {
+			$('#vidcursor').show();
+		}).mousemove( function(e) {
+			$('#vidcursor').css('left', e.pageX + 'px');
+			$('#vidcursor').css('top', e.pageY + 'px');
+			if($('#mukbang').hasClass('initialized')) {
+				$('#vidbar-out').show();
+				if(!player.paused() && e.pageY < 550) setTimeout(() => {$('#vidbar-out').hide();}, 1000);
+			}
+		}).mouseleave( function() {
+			$('#vidcursor').hide();
+		});
+
+		// functionality to click on progress bar to set vid time
+		$('#vidbar-sensitive').click( function(e) {
+			var progress = (e.pageX - 0.045 * window.innerWidth) / (0.91 * window.innerWidth);
+			player.currentTime(progress * player.duration());
+			$('#mukbang').click();
+			render();
+		}).mouseenter( function() {
+			$('#vidcursor').hide();
+		}).mouseleave( function() {
+			$('#vidcursor').show();
+		});
+	}
+
+	// reset video and display cover image
+	player.on('ended', function() {
+		player.currentTime(0);
+		$('#mukbang').toggleClass('initialized', false);
+		cancelAnimationFrame(progressId);
+		$('#vidbar-out').hide();
+		if(mobileMode) {
+			$('#vidbutton').html('Play');
+		} else {
+			$('#pausecursor').hide();
+			$('#playcursor').show();
+		}
+	});
+
+	/*
 	if(isMobile()) {
 		mobileMode = true;
 		$('#vidbutton').show();
@@ -91,7 +251,7 @@ function init () {
 	});
 
 	if(mobileMode) {
-		if($('#mukbang').hasClass('initialized')) $('#vidbar-out').show();
+		// if($('#mukbang').hasClass('initialized')) $('#vidbar-out').show();
 	} else {
 		$('#mukbang').mouseenter( function() {
 			$('#vidcursor').show();
@@ -122,6 +282,7 @@ function init () {
 	}).mouseleave( function() {
 		if(!mobileMode) $('#vidcursor').show();
 	});
+	*/
 }
 
 function render () {
