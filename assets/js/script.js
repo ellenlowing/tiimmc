@@ -130,11 +130,11 @@ function init () {
 				progressId = requestAnimationFrame(render);
 				$('#playcursor').hide();
 				$('#pausecursor').show();
-				setTimeout(() => {$('#vidbar-out').hide();}, 1000);
+				touchTimeout = setTimeout(() => {$('#vidbar-out').hide();}, 1000);
 				if(!$('#mukbang').hasClass('initialized')) {
 					$('#mukbang').toggleClass('initialized', true);
 					$('#vidbar-out').show();
-					setTimeout(() => {$('#vidbar-out').hide();}, 1000);
+					touchTimeout = setTimeout(() => {$('#vidbar-out').hide();}, 1000);
 				}
 			} else {
 				player.pause();
@@ -149,11 +149,12 @@ function init () {
 		$('#mukbang').mouseenter( function() {
 			$('#vidcursor').show();
 		}).mousemove( function(e) {
+			clearTimeout(touchTimeout);
 			$('#vidcursor').css('left', e.pageX + 'px');
 			$('#vidcursor').css('top', e.pageY + 'px');
 			if($('#mukbang').hasClass('initialized')) {
 				$('#vidbar-out').show();
-				if(!player.paused() && e.pageY < 550) setTimeout(() => {$('#vidbar-out').hide();}, 1000);
+				if(!player.paused() && e.pageY < 550) touchTimeout = setTimeout(() => {$('#vidbar-out').hide();}, 1000);
 			}
 		}).mouseleave( function() {
 			$('#vidcursor').hide();
@@ -166,6 +167,8 @@ function init () {
 			$('#mukbang').click();
 			render();
 		}).mouseenter( function() {
+			$('#vidcursor').hide();
+		}).mouseover( function() {
 			$('#vidcursor').hide();
 		}).mouseleave( function() {
 			$('#vidcursor').show();
