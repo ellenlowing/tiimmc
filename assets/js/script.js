@@ -71,12 +71,14 @@ function init () {
 					progressId = requestAnimationFrame(render);
 					$('#vidbutton').html('Pause');
 					$('#vidbar-out').show();
-					setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
+					touchInit = true;
+					touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
 					if(!$('#mukbang').hasClass('initialized')) {
 						$('#mukbang').toggleClass('initialized', true);
 						$('#vidbutton').html('Pause');
 						$('#vidbar-out').show();
-						setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
+						touchInit = true;
+						touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
 					}
 				}
 			} else {
