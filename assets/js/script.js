@@ -71,12 +71,12 @@ function init () {
 					progressId = requestAnimationFrame(render);
 					$('#vidbutton').html('Pause');
 					$('#vidbar-out').show();
-					setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 1000);
+					setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
 					if(!$('#mukbang').hasClass('initialized')) {
 						$('#mukbang').toggleClass('initialized', true);
 						$('#vidbutton').html('Pause');
 						$('#vidbar-out').show();
-						setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 1000);
+						setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
 					}
 				}
 			} else {
@@ -88,7 +88,7 @@ function init () {
 						touchInit = false;
 						$('#vidbutton').html('');
 						$('#vidbar-out').hide();
-					}, 1000);
+					}, 3000);
 				} else {
 					clearTimeout(touchTimeout);
 					touchInit = false;
@@ -98,7 +98,7 @@ function init () {
 						var progress = 1.0 - Math.abs(touch.pageY - 0.045 * window.innerHeight) / (0.91 * window.innerHeight);
 						player.currentTime(progress * player.duration());
 						player.play();
-						setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 1000);
+						setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
 						render();
 					} else {
 						player.pause();
