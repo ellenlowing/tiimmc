@@ -70,7 +70,7 @@ ul li {
   border: 0.5px solid white;
   display: none;
   width: 91vw;
-  height: 3px;
+  height: 10px;
   position: absolute;
   left: 50%;
   margin-left: -45.5vw;
@@ -178,7 +178,7 @@ ul li {
 }
 
 .main .info > * {
-  font-size: 28px;
+  font-size: 26px;
   /* padding-top: 2em; */
   padding-right: 1em;
 }
@@ -201,7 +201,7 @@ ul li {
 .main .info .address,
 .main .info .description {
   font-family: NHaasGrotesk;
-  font-size: 28px;
+  font-size: 26px;
   color: #000000;
   letter-spacing: 0.44px;
   line-height: 37px;
