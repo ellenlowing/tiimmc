@@ -49,6 +49,7 @@ ul li {
   height: 100vh;
   object-fit: cover;
   object-position: center;
+  overflow: hidden;
   margin-bottom:1em;
   z-index: 4;
   visibility: hidden;
