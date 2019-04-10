@@ -203,6 +203,8 @@ ul li {
   color: #000000;
   letter-spacing: 0.44px;
   line-height: 37px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .main .info .description {
