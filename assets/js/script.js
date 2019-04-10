@@ -53,6 +53,16 @@ function init () {
 			'left': '-15px'
 		});
 
+		document.getElementById('rsvp-link').addEventListener('touchstart', () => {
+			$('.oval').css('background', '#A55DFF');
+			$('#rsvp-link').css('color', '#fff');
+		}, false);
+
+		document.getElementById('rsvp-link').addEventListener('touchend', () => {
+			$('.oval').css('background', 'unset');
+			$('#rsvp-link').css('color', '#A55DFF');
+		}, false);
+
 		// tap listener
 		// once: to show pause button and vid progress bar
 		// twice: set vid time if press in vidbar, otherwise pause video
