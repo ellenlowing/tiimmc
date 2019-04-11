@@ -1,6 +1,6 @@
 var mode = 1; // 1: normal, 0: screensaver (idle)
 var idleTimeout;
-var idleInterval = 90000; //90000
+var idleInterval = 1000; //90000
 var mobileMode = false;
 var touchInit = false; // mobile only
 var touchTimeout;
@@ -94,13 +94,6 @@ function init () {
 						$('#vidbar-out').show();
 						touchInit = true;
 						touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
-						// if(!$('#mukbang').hasClass('initialized')) {
-						// 	$('#mukbang').toggleClass('initialized', true);
-						// 	$('#vidbutton').html('Pause');
-						// 	$('#vidbar-out').show();
-						// 	touchInit = true;
-						// 	touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
-						// }
 					}
 				} else {
 					if(!touchInit) {

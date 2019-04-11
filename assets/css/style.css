@@ -300,9 +300,10 @@ ul li {
   font-size: 13.9vw;
   letter-spacing: 1.6px;
   position: absolute;
-  margin-bottom: 20px;
-  margin-right: 20px;
+  bottom: 20px;
+  right: 20px;
   width: 66vw;
+  text-align: left;
 }
 
 .screensaver #timer > * {
