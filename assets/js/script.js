@@ -1,6 +1,6 @@
 var mode = 1; // 1: normal, 0: screensaver (idle)
 var idleTimeout;
-var idleInterval = 1000; //90000
+var idleInterval = 90000; //90000
 var mobileMode = false;
 var touchInit = false; // mobile only
 var touchTimeout;
