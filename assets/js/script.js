@@ -66,57 +66,69 @@ function init () {
 		// tap listener
 		// once: to show pause button and vid progress bar
 		// twice: set vid time if press in vidbar, otherwise pause video
+		var playbtn = document.getElementById('vidbutton');
+		playbtn.addEventListener('touchstart', (e) => {
+			if(!$('#mukbang').hasClass('initialized')) {
+				$('#mukbang').toggleClass('initialized', true);
+				$('#vidbutton').html('Pause');
+				$('#vidbar-out').show();
+				touchInit = true;
+				touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
+			}
+		});
 		var mukbang = document.getElementById('mukbang');
 		mukbang.addEventListener('touchstart', (e) => {
-			if(player.paused()) {
-				var touch = e.targetTouches[0];
-				if(touch.pageX > (window.innerWidth-100)) {
-					// set vid time with clientY
-					var progress = 1.0 - Math.abs(touch.pageY - 0.045 * window.innerHeight) / (0.91 * window.innerHeight);
-					player.currentTime(progress * player.duration());
-					player.pause();
-					render();
-				} else {
-					player.play();
-					progressId = requestAnimationFrame(render);
-					$('#vidbutton').html('Pause');
-					$('#vidbar-out').show();
-					touchInit = true;
-					touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
-					if(!$('#mukbang').hasClass('initialized')) {
-						$('#mukbang').toggleClass('initialized', true);
-						$('#vidbutton').html('Pause');
-						$('#vidbar-out').show();
-						touchInit = true;
-						touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
-					}
-				}
-			} else {
-				if(!touchInit) {
-					touchInit = true;
-					$('#vidbutton').html('Pause');
-					$('#vidbar-out').show();
-					touchTimeout = setTimeout(() => {
-						touchInit = false;
-						$('#vidbutton').html('');
-						$('#vidbar-out').hide();
-					}, 3000);
-				} else {
-					clearTimeout(touchTimeout);
-					touchInit = false;
+			if($('#mukbang').hasClass('initialized')) {
+				if(player.paused()) {
 					var touch = e.targetTouches[0];
 					if(touch.pageX > (window.innerWidth-100)) {
 						// set vid time with clientY
 						var progress = 1.0 - Math.abs(touch.pageY - 0.045 * window.innerHeight) / (0.91 * window.innerHeight);
 						player.currentTime(progress * player.duration());
-						player.play();
-						setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
+						player.pause();
 						render();
 					} else {
-						player.pause();
-						cancelAnimationFrame(progressId);
-						$('#vidbutton').html('Play');
+						player.play();
+						progressId = requestAnimationFrame(render);
+						$('#vidbutton').html('Pause');
 						$('#vidbar-out').show();
+						touchInit = true;
+						touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
+						// if(!$('#mukbang').hasClass('initialized')) {
+						// 	$('#mukbang').toggleClass('initialized', true);
+						// 	$('#vidbutton').html('Pause');
+						// 	$('#vidbar-out').show();
+						// 	touchInit = true;
+						// 	touchTimeout = setTimeout(() => {touchInit = false; $('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
+						// }
+					}
+				} else {
+					if(!touchInit) {
+						touchInit = true;
+						$('#vidbutton').html('Pause');
+						$('#vidbar-out').show();
+						touchTimeout = setTimeout(() => {
+							touchInit = false;
+							$('#vidbutton').html('');
+							$('#vidbar-out').hide();
+						}, 3000);
+					} else {
+						clearTimeout(touchTimeout);
+						touchInit = false;
+						var touch = e.targetTouches[0];
+						if(touch.pageX > (window.innerWidth-100)) {
+							// set vid time with clientY
+							var progress = 1.0 - Math.abs(touch.pageY - 0.045 * window.innerHeight) / (0.91 * window.innerHeight);
+							player.currentTime(progress * player.duration());
+							player.play();
+							touchTimeout = setTimeout(() => {$('#vidbutton').html(''); $('#vidbar-out').hide();}, 3000);
+							render();
+						} else {
+							player.pause();
+							cancelAnimationFrame(progressId);
+							$('#vidbutton').html('Play');
+							$('#vidbar-out').show();
+						}
 					}
 				}
 			}
@@ -178,6 +190,8 @@ function init () {
 	// reset video and display cover image
 	player.on('ended', function() {
 		player.currentTime(0);
+		touchInit = false;
+		clearTimeout(touchTimeout);
 		$('#mukbang').toggleClass('initialized', false);
 		cancelAnimationFrame(progressId);
 		$('#vidbar-out').hide();
