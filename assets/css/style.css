@@ -338,7 +338,7 @@ ul li {
 .screensaver #seconds {
   left: 3%;
 }
-
+ 
 @media only screen and (max-width: 600px) {
 
   ul li {
