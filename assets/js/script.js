@@ -219,7 +219,7 @@ function mouseMove () {
 function idle () {
   mode = 0;
   $('.screensaver').show();
-  var date = new Date("May 18, 2019 19:00:00").getTime();
+  var date = new Date("May 11, 2019 19:00:00").getTime();
   var timer = setInterval(function() {
     var now = new Date().getTime();
     var dist = date - now;
