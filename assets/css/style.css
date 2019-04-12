@@ -441,7 +441,7 @@ ul li {
     left: 0;
     font-size: 16.7vh;
     letter-spacing: 2px;
-    /* line-height: 142px; */
+    line-height: 16vh;
     padding-left: 0.2em;
     position: absolute;
     margin: 0;
@@ -461,18 +461,18 @@ ul li {
   }
 
   .screensaver #days-block {
-    top: 6vh;
+    top: calc(50% - 9.375vh - 32vh);
   }
 
   .screensaver #hours-block {
-    top: 22vh;
+    top: calc(50% - 9.375vh - 16vh);
   }
 
   .screensaver #minutes-block {
-    bottom: 22vh;
+    top: calc(50% + 9.375vh + 20px);
   }
 
   .screensaver #seconds-block {
-    bottom: 6vh;
+    top: calc(50% + 9.375vh + 16vh + 20px);
   }
 }
