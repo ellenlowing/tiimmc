@@ -227,7 +227,7 @@ function idle () {
     var hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((dist % (1000 * 60)) / 1000);
-    $('#days').html(days<0?'00':days<10?'0'+days:days);
+    $('#days').html(days<0?'0':days<10?'0'+days:days);
 		$('#hours').html(hours<0?'00':hours<10?'0'+hours:hours);
 		$('#minutes').html(minutes<0?'00':minutes<10?'0'+minutes:minutes);
 		$('#seconds').html(seconds<0?'00':seconds<10?'0'+seconds:seconds);
