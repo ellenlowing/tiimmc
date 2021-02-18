@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: tiimmc.info
+Token: b3f94a5328471982181abbc4d3fbd76d30e3946acc59ce9dadcf176b449fa623
